@@ -1,0 +1,35 @@
+## Interface: 60000
+## Title: Broker: Essentials
+## Version: 1.0.0
+## Author: Lombra
+## SavedVariables: Broker_EssentialsDB
+## RequiredDeps: Blizzard_TimeManager
+
+Libs\LibStub.lua
+Libs\CallbackHandler-1.0.lua
+Libs\LibDataBroker-1.1.lua
+Libs\Libra\Libra.xml
+
+Core.lua
+Bags.lua
+Chores.lua
+Clock.lua
+Currency.lua
+DailyReset.lua
+DualSpec.lua
+Durability.lua
+EquipmentSets.lua
+Friends.lua
+Gold.lua
+Guild.lua
+Logout.lua
+LootSpec.lua
+Mounts.lua
+PetSpec.lua
+Portals.lua
+RaidBuffs.lua
+RaidInfo.lua
+ReloadUI.lua
+Reincarnation.lua
+Speed.lua
+Toys.lua
