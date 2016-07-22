@@ -1,19 +1,20 @@
 local _, core = ...
 local db, session
 
-local realm = GetRealmName()
-local player = UnitName("player")
+local player
 
 local module = core:NewModule("Gold", {
 	type = "data source",
 	label = "Gold",
 	icon = [[Interface\Icons\INV_Misc_Coin_02]],
 	OnTooltipShow = function(self)
-		self:AddLine("Broker: Gold", HIGHLIGHT_FONT_COLOR.r, HIGHLIGHT_FONT_COLOR.g, HIGHLIGHT_FONT_COLOR.b)
+		self:AddLine("Gold", HIGHLIGHT_FONT_COLOR.r, HIGHLIGHT_FONT_COLOR.g, HIGHLIGHT_FONT_COLOR.b)
 		local sum = 0
 		for character, money in pairs(db) do
-			self:AddDoubleLine(character, GetMoneyString(money), nil, nil, nil, HIGHLIGHT_FONT_COLOR.r, HIGHLIGHT_FONT_COLOR.g, HIGHLIGHT_FONT_COLOR.b)
-			sum = sum + money
+			if core:IsConnectedRealm(character:match("%-(.+)"), true) then
+				self:AddDoubleLine(Ambiguate(character, "none"), GetMoneyString(money), nil, nil, nil, HIGHLIGHT_FONT_COLOR.r, HIGHLIGHT_FONT_COLOR.g, HIGHLIGHT_FONT_COLOR.b)
+				sum = sum + money
+			end
 		end
 		self:AddLine(" ")
 		self:AddDoubleLine("Total", GetMoneyString(sum), nil, nil, nil, HIGHLIGHT_FONT_COLOR.r, HIGHLIGHT_FONT_COLOR.g, HIGHLIGHT_FONT_COLOR.b)
@@ -34,10 +35,13 @@ local module = core:NewModule("Gold", {
 
 function module:OnInitialize()
 	db = self:GetDB()
-	db[realm] = db[realm] or {}
-	db = db[realm]
-	self:RegisterEvent("PLAYER_LOGIN", "Update")
+	self:RegisterEvent("PLAYER_LOGIN")
 	self:RegisterEvent("PLAYER_MONEY", "Update")
+end
+
+function module:PLAYER_LOGIN()
+	player = strjoin("-", UnitFullName("player"))
+	self:Update()
 end
 
 function module:Update()

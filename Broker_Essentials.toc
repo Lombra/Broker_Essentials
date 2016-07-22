@@ -1,4 +1,4 @@
-## Interface: 60000
+## Interface: 70000
 ## Title: Broker: Essentials
 ## Version: 1.0.0
 ## Author: Lombra
@@ -27,7 +27,6 @@ LootSpec.lua
 Mounts.lua
 PetSpec.lua
 Portals.lua
-RaidBuffs.lua
 RaidInfo.lua
 ReloadUI.lua
 Reincarnation.lua

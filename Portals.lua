@@ -35,6 +35,15 @@ local menuItems = {
 	{type = "spell", id = 131206}, -- Path of the Shado-Pan
 	{type = "spell", id = 131205}, -- Path of the Stout Brew
 	
+	{type = "spell", id = 159895}, -- Path of the Bloodmaul
+	{type = "spell", id = 159896}, -- Path of the Iron Prow
+	{type = "spell", id = 159897}, -- Path of the Vigilant
+	{type = "spell", id = 159898}, -- Path of the Skies
+	{type = "spell", id = 159901}, -- Path of the Verdant
+	{type = "spell", id = 159900}, -- Path of the Dark Rail
+	{type = "spell", id = 159899}, -- Path of the Crescent Moon
+	{type = "spell", id = 159902}, -- Path of the Burning Mountain
+	
 	{text = "Portals"},
 	{type = "spell", id = 88345}, -- Tol Barad (Alliance)
 	{type = "spell", id = 88346}, -- Tol Barad (Horde)
@@ -53,12 +62,13 @@ local menuItems = {
 	{type = "spell", id = 49361}, -- Stonard
 	
 	{text = "Items"},
-	{type = "item", id = 18986}, -- Ultrasafe Transporter: Gadgetzan
-	{type = "item", id = 18984}, -- Dimensional Ripper: Everlook
-	{type = "item", id = 30544}, -- Ultrasafe Transporter: Toshley's Station
-	{type = "item", id = 30542}, -- Dimensional Ripper: Area 52
-	{type = "item", id = 48933}, -- Wormhole Generator: Northrend
-	{type = "item", id = 87215}, -- Wormhole Generator: Pandaria
+	{type = "item", id = 18986},  -- Ultrasafe Transporter: Gadgetzan
+	{type = "item", id = 18984},  -- Dimensional Ripper: Everlook
+	{type = "item", id = 30544},  -- Ultrasafe Transporter: Toshley's Station
+	{type = "item", id = 30542},  -- Dimensional Ripper: Area 52
+	{type = "item", id = 48933},  -- Wormhole Generator: Northrend
+	{type = "item", id = 87215},  -- Wormhole Generator: Pandaria
+	{type = "item", id = 112059}, -- Wormhole Centrifuge
 }
 
 local dropdown = core:CreateDropdown("Menu")

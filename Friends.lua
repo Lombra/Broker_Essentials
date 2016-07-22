@@ -164,8 +164,8 @@ function module:OnTooltipShow()
 
 			local status = 0
 			for i = 1, numBNetOnline do
-				local presenceID, presenceName, _, _, toonName, toonID, client, _, _, isAFK, isDND = BNGetFriendInfo(i)
-				local hasFocus, _, client, realmName, realmID, faction, race, class, guild, zoneName, level, gameText = BNGetToonInfo(toonID)
+				local bnetIDAccount, accountName, battleTag, _, characterName, bnetIDGameAccount, client, _, _, isAFK, isDND = BNGetFriendInfo(i)
+				local hasFocus, characterName, client, realmName, realmID, faction, race, class, guild, zoneName, level, gameText = BNGetGameAccountInfo(bnetIDGameAccount)
 				if client == BNET_CLIENT_WOW then
 					if isAFK then
 						status = 1
@@ -179,12 +179,12 @@ function module:OnTooltipShow()
 					local classc = (CUSTOM_CLASS_COLORS or RAID_CLASS_COLORS)[class].colorStr
 					
 					local grouped
-					if UnitInParty(toonName) or UnitInRaid(toonName) then
+					if UnitInParty(characterName) or UnitInRaid(characterName) then
 						grouped = 1
 					else
 						grouped = 2
 					end
-					GameTooltip:AddDoubleLine(presenceName, format(clientLevelNameString, client, level, classc or "ffffffff", toonName, groupedTable[grouped], 255, 0, 0, statusTable[status]),238,238,238,238,238,238)
+					GameTooltip:AddDoubleLine(accountName, format(clientLevelNameString, client, level, classc or "ffffffff", characterName, groupedTable[grouped], 255, 0, 0, statusTable[status]), 238, 238, 238, 238, 238, 238)
 					if IsShiftKeyDown() then
 						if GetRealZoneText() == zoneName then
 							zonec = activezone
@@ -199,7 +199,12 @@ function module:OnTooltipShow()
 						GameTooltip:AddDoubleLine("  "..zoneName, realmName, zonec.r, zonec.g, zonec.b, realmc.r, realmc.g, realmc.b)
 					end
 				else
-					GameTooltip:AddDoubleLine("|cffeeeeee"..presenceName.."|r", "|cffeeeeee"..client.." ("..toonName..")|r")
+					if client ~= BNET_CLIENT_APP then
+						characterName = BNet_GetValidatedCharacterName(characterName, battleTag, client)
+						GameTooltip:AddDoubleLine(accountName, format("%s (%s)", client, characterName), 1.0, 1.0, 1.0, 1.0, 1.0, 1.0)
+					else
+						GameTooltip:AddLine(accountName, 1.0, 1.0, 1.0)
+					end
 				end
 			end
 		end

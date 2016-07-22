@@ -2,7 +2,7 @@ local Libra = LibStub("Libra")
 local LDB = LibStub("LibDataBroker-1.1")
 
 local addon = Libra:NewAddon(...)
-Libra:EmbedWidgets(addon)
+Libra:Embed(addon)
 
 function addon:OnInitialize()
 	Broker_EssentialsDB = Broker_EssentialsDB or {}
