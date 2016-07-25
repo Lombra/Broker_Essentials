@@ -16,7 +16,6 @@ Chores.lua
 Clock.lua
 Currency.lua
 DailyReset.lua
-DualSpec.lua
 Durability.lua
 EquipmentSets.lua
 Friends.lua
@@ -30,5 +29,6 @@ Portals.lua
 RaidInfo.lua
 ReloadUI.lua
 Reincarnation.lua
+Spec.lua
 Speed.lua
 Toys.lua
