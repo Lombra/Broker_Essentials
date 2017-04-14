@@ -5,8 +5,6 @@ local function onClick(self, specID)
 end
 
 local dropdown = core:CreateDropdown("Menu")
-dropdown.xOffset = 0
-dropdown.yOffset = 0
 dropdown.initialize = function(self, level)
 	local specIndex = GetSpecialization()
 	if specIndex then
@@ -55,9 +53,9 @@ function module:Update()
 	local spec = GetSpecialization()
 	if lootSpec and spec then
 		if lootSpec == 0 then
-			lootSpec = GetSpecializationInfo(spec)
+			lootSpec = spec
 		end
-		local _, name, _, icon = GetSpecializationInfoByID(lootSpec)
+		local _, name, _, icon = GetSpecializationInfo(lootSpec)
 		self.text = name
 		self.icon = icon
 	else

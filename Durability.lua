@@ -1,5 +1,6 @@
 local _, core = ...
 
+local module
 local db
 
 local inventoryPct, backpackPct
@@ -47,7 +48,7 @@ local dropdown = core:CreateDropdown("Menu")
 dropdown.initialize = function(self)
 	for i, v in ipairs(menu) do
 		v.func = onClick
-		v.checked = db[v.value]
+		v.checked = db[v.arg1]
 		self:AddButton(v)
 	end
 end
@@ -78,7 +79,7 @@ local function getPercentage(current, total)
 	end
 end
 
-local module = core:NewModule("Durability", {
+module = core:NewModule("Durability", {
 	type = "data source",
 	text = "n/a",
 	label = "Durability",

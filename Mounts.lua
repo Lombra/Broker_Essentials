@@ -1,19 +1,19 @@
 local _, core = ...
 
-local function onClick(self, index)
-	C_MountJournal.Summon(index)
+local function onClick(self, mountID)
+	C_MountJournal.SummonByID(mountID)
 end
 
 local dropdown = core:CreateDropdown("Menu")
 dropdown.initialize = function(self, level)
-	for i = 1, C_MountJournal.GetNumMounts() do
-		local creatureName, _, icon, active, isUsable, _, isFavorite, isFactionSpecific, faction, hideOnChar, isCollected = C_MountJournal.GetMountInfo(i)
+	for i, mountID in ipairs(C_MountJournal.GetMountIDs()) do
+		local creatureName, _, icon, active, isUsable, _, isFavorite, isFactionSpecific, faction, hideOnChar, isCollected = C_MountJournal.GetMountInfoByID(mountID)
 		if isFavorite and isUsable then
 			local info = UIDropDownMenu_CreateInfo()
 			info.text = creatureName
 			info.icon = icon
 			info.func = onClick
-			info.arg1 = i
+			info.arg1 = mountID
 			info.notCheckable = true
 			self:AddButton(info)
 		end

@@ -25,25 +25,6 @@ local menuItems = {
 	
 	{type = "spell", id = 18960}, -- Moonglade
 	
-	{type = "spell", id = 131228}, -- Path of the Black Ox
-	{type = "spell", id = 131204}, -- Path of the Jade Serpent
-	{type = "spell", id = 131222}, -- Path of the Mogu King
-	{type = "spell", id = 131232}, -- Path of the Necromancer
-	{type = "spell", id = 131231}, -- Path of the Scarlet Blade
-	{type = "spell", id = 131229}, -- Path of the Scarlet Mitre
-	{type = "spell", id = 131225}, -- Path of the Setting Sun
-	{type = "spell", id = 131206}, -- Path of the Shado-Pan
-	{type = "spell", id = 131205}, -- Path of the Stout Brew
-	
-	{type = "spell", id = 159895}, -- Path of the Bloodmaul
-	{type = "spell", id = 159896}, -- Path of the Iron Prow
-	{type = "spell", id = 159897}, -- Path of the Vigilant
-	{type = "spell", id = 159898}, -- Path of the Skies
-	{type = "spell", id = 159901}, -- Path of the Verdant
-	{type = "spell", id = 159900}, -- Path of the Dark Rail
-	{type = "spell", id = 159899}, -- Path of the Crescent Moon
-	{type = "spell", id = 159902}, -- Path of the Burning Mountain
-	
 	{text = "Portals"},
 	{type = "spell", id = 88345}, -- Tol Barad (Alliance)
 	{type = "spell", id = 88346}, -- Tol Barad (Horde)
@@ -60,6 +41,27 @@ local menuItems = {
 	{type = "spell", id = 32267}, -- Silvermoon
 	{type = "spell", id = 49360}, -- Theramore
 	{type = "spell", id = 49361}, -- Stonard
+	
+	{text = "Challenger's Path"},
+	{type = "spell", id = 131228}, -- Path of the Black Ox
+	{type = "spell", id = 131204}, -- Path of the Jade Serpent
+	{type = "spell", id = 131222}, -- Path of the Mogu King
+	{type = "spell", id = 131232}, -- Path of the Necromancer
+	{type = "spell", id = 131231}, -- Path of the Scarlet Blade
+	{type = "spell", id = 131229}, -- Path of the Scarlet Mitre
+	{type = "spell", id = 131225}, -- Path of the Setting Sun
+	{type = "spell", id = 131206}, -- Path of the Shado-Pan
+	{type = "spell", id = 131205}, -- Path of the Stout Brew
+	
+	{text = "Warlord's Path"},
+	{type = "spell", id = 159895}, -- Path of the Bloodmaul
+	{type = "spell", id = 159896}, -- Path of the Iron Prow
+	{type = "spell", id = 159897}, -- Path of the Vigilant
+	{type = "spell", id = 159898}, -- Path of the Skies
+	{type = "spell", id = 159901}, -- Path of the Verdant
+	{type = "spell", id = 159900}, -- Path of the Dark Rail
+	{type = "spell", id = 159899}, -- Path of the Crescent Moon
+	{type = "spell", id = 159902}, -- Path of the Burning Mountain
 	
 	{text = "Items"},
 	{type = "item", id = 18986},  -- Ultrasafe Transporter: Gadgetzan

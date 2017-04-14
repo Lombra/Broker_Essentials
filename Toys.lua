@@ -3,7 +3,7 @@ local _, core = ...
 local dropdown = core:CreateDropdown("Menu")
 dropdown.initialize = function(self)
 	-- API sometimes doesn't return stuff until we call this
-	C_ToyBox.FilterToys()
+	-- C_ToyBox.ForceToyRefilter()
 	for i = 1, C_ToyBox.GetNumToys() do
 		local itemID, toyName, icon, isFavorite = C_ToyBox.GetToyInfo(C_ToyBox.GetToyFromIndex(i))
 		if isFavorite then

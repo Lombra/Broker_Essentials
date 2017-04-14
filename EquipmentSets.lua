@@ -6,12 +6,12 @@ end
 
 local dropdown = core:CreateDropdown("Menu")
 dropdown.initialize = function(self)
-	for i = 1, GetNumEquipmentSets() do
-		local name, icon, setID, isEquipped, numItems, numEquipped, numInventory, numMissing, numIgnored = GetEquipmentSetInfo(i)
+	for i, id in ipairs(C_EquipmentSet.GetEquipmentSetIDs()) do
+		local name, icon, setID, isEquipped, numItems, numEquipped, numInventory, numMissing, numIgnored = C_EquipmentSet.GetEquipmentSetInfo(id)
 		local info = UIDropDownMenu_CreateInfo()
 		info.text = name
 		info.func = onClick
-		info.arg1 = name
+		info.arg1 = id
 		info.isNotRadio = true
 		info.checked = isEquipped
 		self:AddButton(info)
@@ -25,6 +25,9 @@ local module = core:NewModule("EquipmentSets", {
 	OnClick = function(self)
 		dropdown:Toggle(nil, self)
 	end,
+	-- OnTooltipShow = function(self)
+		-- GetEquipmentSetLocations("name")
+	-- end,
 })
 
 function module:OnInitialize()
@@ -36,15 +39,15 @@ end
 function module:Update()
 	local equipped
 	local mostEquipped = 0
-	for i = 1, GetNumEquipmentSets() do
-		local name, icon, setID, isEquipped, numItems, numEquipped, numInventory, numMissing, numIgnored = GetEquipmentSetInfo(i)
+	for i, id in ipairs(C_EquipmentSet.GetEquipmentSetIDs()) do
+		local name, icon, setID, isEquipped, numItems, numEquipped, numInventory, numMissing, numIgnored = C_EquipmentSet.GetEquipmentSetInfo(id)
 		if numEquipped > mostEquipped then
-			equipped = i
+			equipped = id
 			mostEquipped = numEquipped
 		end
 	end
 	if equipped then
-		local name, icon, setID, isEquipped, numItems, numEquipped, numInventory, numMissing, numIgnored = GetEquipmentSetInfo(equipped)
+		local name, icon, setID, isEquipped, numItems, numEquipped, numInventory, numMissing, numIgnored = C_EquipmentSet.GetEquipmentSetInfo(equipped)
 		if isEquipped then
 			self.text = name
 		else

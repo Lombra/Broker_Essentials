@@ -20,7 +20,7 @@ dropdown.initialize = function(self, level)
 	end
 end
 
-local module = core:NewModule("DualSpec", {
+local module = core:NewModule("Spec", {
 	type = "data source",
 	label = "Spec",
 	OnClick = function(self)

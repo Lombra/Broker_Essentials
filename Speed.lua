@@ -22,9 +22,9 @@ local module = core:NewModule("Speed", {
 			speed = flightSpeed
 		end
 		self:AddLine(format(PAPERDOLLFRAME_TOOLTIP_FORMAT, STAT_MOVEMENT_SPEED).." "..format("%d%%", speed/BASE_MOVEMENT_SPEED*100+0.5), HIGHLIGHT_FONT_COLOR.r, HIGHLIGHT_FONT_COLOR.g, HIGHLIGHT_FONT_COLOR.b)
-		self:AddLine(format(STAT_MOVEMENT_GROUND_TOOLTIP, runSpeed/BASE_MOVEMENT_SPEED*100+0.5))
-		self:AddLine(format(STAT_MOVEMENT_FLIGHT_TOOLTIP, flightSpeed/BASE_MOVEMENT_SPEED*100+0.5))
-		self:AddLine(format(STAT_MOVEMENT_SWIM_TOOLTIP, swimSpeed/BASE_MOVEMENT_SPEED*100+0.5))
+		self:AddLine(format(STAT_MOVEMENT_GROUND_TOOLTIP, runSpeed / BASE_MOVEMENT_SPEED * 100 + 0.5))
+		self:AddLine(format(STAT_MOVEMENT_FLIGHT_TOOLTIP, flightSpeed / BASE_MOVEMENT_SPEED * 100 + 0.5))
+		self:AddLine(format(STAT_MOVEMENT_SWIM_TOOLTIP, swimSpeed / BASE_MOVEMENT_SPEED * 100 + 0.5))
 	end,
 })
 
