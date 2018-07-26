@@ -53,9 +53,9 @@ function module:Update()
 	local spec = GetSpecialization()
 	if lootSpec and spec then
 		if lootSpec == 0 then
-			lootSpec = spec
+			lootSpec = GetSpecializationInfo(spec)
 		end
-		local _, name, _, icon = GetSpecializationInfo(lootSpec)
+		local _, name, _, icon = GetSpecializationInfoByID(lootSpec)
 		self.text = name
 		self.icon = icon
 	else

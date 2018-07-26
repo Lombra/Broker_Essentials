@@ -64,13 +64,13 @@ local menuItems = {
 	{type = "spell", id = 159902}, -- Path of the Burning Mountain
 	
 	{text = "Items"},
-	{type = "item", id = 18986},  -- Ultrasafe Transporter: Gadgetzan
-	{type = "item", id = 18984},  -- Dimensional Ripper: Everlook
-	{type = "item", id = 30544},  -- Ultrasafe Transporter: Toshley's Station
-	{type = "item", id = 30542},  -- Dimensional Ripper: Area 52
-	{type = "item", id = 48933},  -- Wormhole Generator: Northrend
-	{type = "item", id = 87215},  -- Wormhole Generator: Pandaria
-	{type = "item", id = 112059}, -- Wormhole Centrifuge
+	{type = "toy", id = 18986},  -- Ultrasafe Transporter: Gadgetzan
+	{type = "toy", id = 18984},  -- Dimensional Ripper: Everlook
+	{type = "toy", id = 30544},  -- Ultrasafe Transporter: Toshley's Station
+	{type = "toy", id = 30542},  -- Dimensional Ripper: Area 52
+	{type = "toy", id = 48933},  -- Wormhole Generator: Northrend
+	{type = "toy", id = 87215},  -- Wormhole Generator: Pandaria
+	{type = "toy", id = 112059}, -- Wormhole Centrifuge
 }
 
 local dropdown = core:CreateDropdown("Menu")
@@ -106,6 +106,9 @@ function module:PLAYER_LOGIN()
 				name, _, icon = GetSpellInfo(value.id)
 			elseif value.type == "item" then
 				name = "item:"..value.id
+				icon = GetItemIcon(value.id)
+			elseif value.type == "toy" then
+				name = value.id
 				icon = GetItemIcon(value.id)
 			end
 			value.text = name
@@ -162,6 +165,9 @@ function module:SetMenuItemVisibility()
 			value.disabled = not IsUsableSpell(value.text)
 			tinsert(menu, value)
 		elseif value.type == "item" and GetItemCount(value.id) > 0 then
+			value.text = GetItemInfo(value.id)
+			tinsert(menu, value)
+		elseif value.type == "toy" and PlayerHasToy(value.id) and C_ToyBox.IsToyUsable(value.id) then
 			value.text = GetItemInfo(value.id)
 			tinsert(menu, value)
 		end
