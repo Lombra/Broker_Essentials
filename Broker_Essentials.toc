@@ -11,8 +11,8 @@ Libs\LibDataBroker-1.1.lua
 Libs\Libra\Libra.xml
 
 Core.lua
+
 Bags.lua
-Chores.lua
 Clock.lua
 Currency.lua
 DailyReset.lua
