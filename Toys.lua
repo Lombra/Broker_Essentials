@@ -22,7 +22,6 @@ end
 
 local module = core:NewModule("Toys", {
 	type = "data source",
-	text = "Ready",
 	label = "Toys",
 	icon = [[Interface\Icons\Trade_Archaeology_ChestofTinyGlassAnimals]],
 	OnClick = function(self)
