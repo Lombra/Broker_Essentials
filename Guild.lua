@@ -53,7 +53,7 @@ module = core:NewModule("Guild", {
 				self:AddTexture([[Interface\ChatFrame\UI-ChatIcon-ArmoryChat]])
 			end
 		end
-		GuildRoster()
+		C_GuildInfo.GuildRoster()
 		module.tooltipOwner = self:GetOwner()
 	end,
 })
@@ -226,7 +226,7 @@ end)
 Stat:SetScript("OnEnter", function(self)
 	if InCombatLockdown() or not IsInGuild() then return end
 	
-	GuildRoster()
+	C_GuildInfo.GuildRoster()
 	UpdateGuildMessage()
 	BuildGuildTable()
 		
