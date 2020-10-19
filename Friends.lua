@@ -8,9 +8,8 @@ local dropdown = CreateFrame("Frame")
 dropdown.displayMode = "MENU"
 dropdown.initialize = function(self, level)
 	if level ~= 1 then return end
-	local numBNetTotal, numBNetOnline = BNGetNumFriends()
+	local numBNetTotal, numBNetOnline, numBNetFavorite, numBNetFavoriteOnline = BNGetNumFriends()
 	local numWoWOnline = C_FriendList.GetNumOnlineFriends()
-	local zonec, realmc, grouped
 	if (numBNetOnline + numWoWOnline) > 0 then
 		if numWoWOnline > 0 then
 			local info = UIDropDownMenu_CreateInfo()
@@ -57,22 +56,17 @@ dropdown.initialize = function(self, level)
 			info.notCheckable = true
 			UIDropDownMenu_AddButton(info)
 
-			local status = 0
-			for i = 1, numBNetOnline do
-				local accountInfo = C_BattleNet.GetFriendAccountInfo(i)
+			local friendIndices = {}
+			for i = 1, numBNetFavoriteOnline do tinsert(friendIndices, i) end
+			for i = numBNetFavorite + 1, numBNetOnline + (numBNetFavorite - numBNetFavoriteOnline) do tinsert(friendIndices, i) end
+			
+			for i, v in ipairs(friendIndices) do
+				local accountInfo = C_BattleNet.GetFriendAccountInfo(v)
 				local accountName = accountInfo.accountName
 				local gameAccountInfo = accountInfo.gameAccountInfo
 				local characterName = gameAccountInfo and gameAccountInfo.characterName
 				local client = gameAccountInfo and gameAccountInfo.clientProgram
 				if client == BNET_CLIENT_WOW then
-					if accountInfo.isAFK then
-						status = 1
-					elseif accountInfo.isDND then
-						status = 2
-					else
-						status = 3
-					end
-
 					local class = gameAccountInfo.className
 					for k, v in pairs(LOCALIZED_CLASS_NAMES_MALE) do if class == v then class = k end end
 					local classc = (CUSTOM_CLASS_COLORS or RAID_CLASS_COLORS)[class].colorStr
@@ -133,7 +127,7 @@ local statusTable = { "|cffff0000[AFK]|r", "|cffff0000[DND]|r", "" }
 local groupedTable = { "|cffaaaaaa*|r", "" } 
 
 function module:OnTooltipShow()
-	local numBNetTotal, numBNetOnline = BNGetNumFriends()
+	local numBNetTotal, numBNetOnline, numBNetFavorite, numBNetFavoriteOnline = BNGetNumFriends()
 	local numWoWOnline = C_FriendList.GetNumOnlineFriends()
 	local zonec, realmc, grouped
 	if (numBNetOnline + numWoWOnline) > 0 then
@@ -169,14 +163,18 @@ function module:OnTooltipShow()
 			GameTooltip:AddLine(" ")
 			GameTooltip:AddLine("Battle.net")
 
-			local status = 0
-			for i = 1, numBNetOnline do
-				local accountInfo = C_BattleNet.GetFriendAccountInfo(i)
+			local friendIndices = {}
+			for i = 1, numBNetFavoriteOnline do tinsert(friendIndices, i) end
+			for i = numBNetFavorite + 1, numBNetOnline + (numBNetFavorite - numBNetFavoriteOnline) do tinsert(friendIndices, i) end
+			
+			for i, v in ipairs(friendIndices) do
+				local accountInfo = C_BattleNet.GetFriendAccountInfo(v)
 				local accountName = accountInfo.accountName
 				local gameAccountInfo = accountInfo.gameAccountInfo
-				local characterName = gameAccountInfo and gameAccountInfo.characterName
-				local client = gameAccountInfo and gameAccountInfo.clientProgram
+				local characterName = gameAccountInfo.characterName
+				local client = gameAccountInfo.clientProgram
 				if client == BNET_CLIENT_WOW then
+					local status = 0
 					if accountInfo.isAFK then
 						status = 1
 					elseif accountInfo.isDND then
@@ -212,7 +210,7 @@ function module:OnTooltipShow()
 						GameTooltip:AddDoubleLine("  "..zoneName, realmName, zonec.r, zonec.g, zonec.b, realmc.r, realmc.g, realmc.b)
 					end
 				else
-					if client ~= BNET_CLIENT_APP then
+					if client ~= BNET_CLIENT_APP and client ~= "BSAp" then
 						characterName = BNet_GetValidatedCharacterName(characterName, accountInfo.battleTag, client)
 						GameTooltip:AddDoubleLine(accountName, format("%s (%s)", client, characterName), 1.0, 1.0, 1.0, 1.0, 1.0, 1.0)
 					else
