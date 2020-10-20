@@ -1,7 +1,8 @@
-## Interface: 80000
+## Interface: 90001
 ## Title: Broker: Essentials
 ## Version: 1.0.0
 ## Author: Lombra
+
 ## SavedVariables: Broker_EssentialsDB
 ## RequiredDeps: Blizzard_TimeManager
 
@@ -24,7 +25,6 @@ Guild.lua
 Logout.lua
 LootSpec.lua
 Mounts.lua
-#PetSpec.lua
 Portals.lua
 RaidInfo.lua
 ReloadUI.lua
