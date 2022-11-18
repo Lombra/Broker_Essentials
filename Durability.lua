@@ -148,8 +148,8 @@ function module:Update()
 	
 	-- scan backpack items' durability status
 	for bag = 0, NUM_BAG_FRAMES do
-		for slot = 1, GetContainerNumSlots(bag) do
-			local durability, durabilityMax = GetContainerItemDurability(bag, slot)
+		for slot = 1, C_Container.GetContainerNumSlots(bag) do
+			local durability, durabilityMax = C_Container.GetContainerItemDurability(bag, slot)
 			if durability then
 				backpack = backpack + durability
 				backpackMax = backpackMax + durabilityMax

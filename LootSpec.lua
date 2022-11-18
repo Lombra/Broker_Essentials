@@ -55,6 +55,10 @@ function module:Update()
 		if lootSpec == 0 then
 			lootSpec = GetSpecializationInfo(spec)
 		end
+		-- sometimes nil after loading screens
+		if lootSpec == nil then
+			return
+		end
 		local _, name, _, icon = GetSpecializationInfoByID(lootSpec)
 		self.text = name
 		self.icon = icon

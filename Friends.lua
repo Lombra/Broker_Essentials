@@ -1,5 +1,11 @@
 local _, core = ...
 
+local clientLevelNameString = "%s (%d |c%s%s|r%s) |cff%02x%02x%02x%s|r"
+local levelNameClassString = "%d %s%s%s"
+local activezone, inactivezone = {r=0.3, g=1.0, b=0.3}, {r=0.65, g=0.65, b=0.65}
+local statusTable = { "|cffff0000[AFK]|r", "|cffff0000[DND]|r", "" }
+local groupedTable = { "|cffaaaaaa*|r", "" } 
+
 local function onClick(self, arg1)
 	ChatFrame_SendSmartTell(arg1)
 end
@@ -120,16 +126,9 @@ function module:Update()
 	self.text = numBNetOnline + numWoWOnline
 end
 
-local clientLevelNameString = "%s (%d |c%s%s|r%s) |cff%02x%02x%02x%s|r"
-local levelNameClassString = "%d %s%s%s"
-local activezone, inactivezone = {r=0.3, g=1.0, b=0.3}, {r=0.65, g=0.65, b=0.65}
-local statusTable = { "|cffff0000[AFK]|r", "|cffff0000[DND]|r", "" }
-local groupedTable = { "|cffaaaaaa*|r", "" } 
-
 function module:OnTooltipShow()
 	local numBNetTotal, numBNetOnline, numBNetFavorite, numBNetFavoriteOnline = BNGetNumFriends()
 	local numWoWOnline = C_FriendList.GetNumOnlineFriends()
-	local zonec, realmc, grouped
 	if (numBNetOnline + numWoWOnline) > 0 then
 		self:AddLine("Friends", HIGHLIGHT_FONT_COLOR.r, HIGHLIGHT_FONT_COLOR.g, HIGHLIGHT_FONT_COLOR.b)
 		if numWoWOnline > 0 then
@@ -139,7 +138,15 @@ function module:OnTooltipShow()
 			for i = 1, numWoWOnline do
 				local friendInfo = C_FriendList.GetFriendInfoByIndex(i)
 				local name = friendInfo.name
-				local class = friendInfo.class
+				local status = 0
+				if friendInfo.isAFK then
+					status = 1
+				elseif friendInfo.isDND then
+					status = 2
+				else
+					status = 3
+				end
+
 				local zonec
 				if friendInfo.area == GetRealZoneText() then
 					zonec = activezone
@@ -147,7 +154,13 @@ function module:OnTooltipShow()
 					zonec = inactivezone
 				end
 				
-				for k, v in pairs(LOCALIZED_CLASS_NAMES_MALE) do if class == v then class = k end end
+				local class = friendInfo.className
+				for k, v in pairs(LOCALIZED_CLASS_NAMES_MALE) do
+					if v == class then
+						class = k
+					end
+				end
+				
 				local classc = (CUSTOM_CLASS_COLORS or RAID_CLASS_COLORS)[class]
 				
 				local grouped
@@ -156,7 +169,7 @@ function module:OnTooltipShow()
 				else
 					grouped = 2
 				end
-				GameTooltip:AddDoubleLine(format(levelNameClassString, friendInfo.level, name, groupedTable[grouped], " "..friendInfo.status), friendInfo.area, classc.r, classc.g, classc.b, zonec.r, zonec.g, zonec.b)
+				GameTooltip:AddDoubleLine(format(levelNameClassString, friendInfo.level, name, groupedTable[grouped], " "..statusTable[status]), friendInfo.area, classc.r, classc.g, classc.b, zonec.r, zonec.g, zonec.b)
 			end
 		end
 		if numBNetOnline > 0 then
@@ -169,7 +182,6 @@ function module:OnTooltipShow()
 			
 			for i, v in ipairs(friendIndices) do
 				local accountInfo = C_BattleNet.GetFriendAccountInfo(v)
-				local accountName = accountInfo.accountName
 				local gameAccountInfo = accountInfo.gameAccountInfo
 				local characterName = gameAccountInfo.characterName
 				local client = gameAccountInfo.clientProgram
@@ -193,28 +205,32 @@ function module:OnTooltipShow()
 					else
 						grouped = 2
 					end
-					GameTooltip:AddDoubleLine(accountName, format(clientLevelNameString, client, gameAccountInfo.characterLevel, classc or "ffffffff", characterName, groupedTable[grouped], 255, 0, 0, statusTable[status]), 238, 238, 238, 238, 238, 238)
+					GameTooltip:AddDoubleLine(accountInfo.accountName, format(clientLevelNameString, client, gameAccountInfo.characterLevel, classc or "ffffffff", characterName, groupedTable[grouped], 255, 0, 0, statusTable[status]), 238, 238, 238, 238, 238, 238)
 					if IsShiftKeyDown() then
-						local realmName = gameAccountInfo.realmName
 						local zoneName = gameAccountInfo.areaName
+						local zonec
 						if GetRealZoneText() == zoneName then
 							zonec = activezone
 						else
 							zonec = inactivezone
 						end
+						
+						local realmName = gameAccountInfo.realmName
+						local realmc
 						if GetRealmName() == realmName then
 							realmc = activezone
 						else
 							realmc = inactivezone
 						end
+						
 						GameTooltip:AddDoubleLine("  "..zoneName, realmName, zonec.r, zonec.g, zonec.b, realmc.r, realmc.g, realmc.b)
 					end
 				else
 					if client ~= BNET_CLIENT_APP and client ~= "BSAp" then
 						characterName = BNet_GetValidatedCharacterName(characterName, accountInfo.battleTag, client)
-						GameTooltip:AddDoubleLine(accountName, format("%s (%s)", client, characterName), 1.0, 1.0, 1.0, 1.0, 1.0, 1.0)
+						GameTooltip:AddDoubleLine(accountInfo.accountName, format("%s (%s)", client, characterName), 1.0, 1.0, 1.0, 1.0, 1.0, 1.0)
 					else
-						GameTooltip:AddLine(accountName, 1.0, 1.0, 1.0)
+						GameTooltip:AddLine(accountInfo.accountName, 1.0, 1.0, 1.0)
 					end
 				end
 			end

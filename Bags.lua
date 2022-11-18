@@ -18,7 +18,7 @@ end
 function module:UpdateSlots()
 	local totalFree = 0
 	for i = BACKPACK_CONTAINER, NUM_BAG_SLOTS do
-		local freeSlots, bagFamily = GetContainerNumFreeSlots(i)
+		local freeSlots, bagFamily = C_Container.GetContainerNumFreeSlots(i)
 		if bagFamily == 0 then
 			totalFree = totalFree + freeSlots
 		end
