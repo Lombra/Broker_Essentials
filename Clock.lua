@@ -19,5 +19,3 @@ module:SetOnUpdate(function(self, elapsed)
 		lastUpdate = lastUpdate - 1
 	end
 end)
-
-TimeManagerClockButton:Hide()
