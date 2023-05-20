@@ -4,7 +4,7 @@ local module
 
 module = core:NewModule("RaidInfo", {
 	type = "data source",
-	label = "Instance lockouts",
+	label = "Raid info",
 	icon = [[Interface\Icons\Ability_TownWatch]],
 	OnClick = function(self, button)
 		ToggleRaidFrame(2)
@@ -13,13 +13,13 @@ module = core:NewModule("RaidInfo", {
 		end
 	end,
 	OnTooltipShow = function(self)
-		self:AddLine("Broker: RaidInfo", HIGHLIGHT_FONT_COLOR.r, HIGHLIGHT_FONT_COLOR.g, HIGHLIGHT_FONT_COLOR.b)
+		self:AddLine("Raid info", HIGHLIGHT_FONT_COLOR.r, HIGHLIGHT_FONT_COLOR.g, HIGHLIGHT_FONT_COLOR.b)
 		local isSaved
 		for i = 1, GetNumSavedInstances() do
-			local instanceName, instanceID, instanceReset, instanceDifficulty, locked, extended, _, isRaid, maxPlayers, difficultyName, maxBosses, defeatedBosses = GetSavedInstanceInfo(i)
+			local instanceName, instanceID, instanceReset, instanceDifficulty, locked, extended, _, isRaid, maxPlayers, difficultyName, maxBosses, numDefeatedBosses = GetSavedInstanceInfo(i)
 			if locked or extended then
-				self:AddLine(instanceName)
-				if defeatedBosses < maxBosses then
+				self:AddLine(format("%s (%s)", instanceName, difficultyName))
+				if numDefeatedBosses < maxBosses then
 					for encounterIndex = 1, maxBosses do
 						local encounterName, _, defeated = GetSavedInstanceEncounterInfo(i, encounterIndex)
 						local color
