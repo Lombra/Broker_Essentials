@@ -23,6 +23,7 @@ EquipmentSets.lua
 Friends.lua
 Gold.lua
 Guild.lua
+Location.lua
 Logout.lua
 LootSpec.lua
 Mounts.lua
