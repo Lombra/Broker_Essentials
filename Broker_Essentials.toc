@@ -13,6 +13,7 @@ Libs\Libra\Libra.xml
 
 Core.lua
 
+Addons.lua
 Bags.lua
 Clock.lua
 Currency.lua
