@@ -15,6 +15,7 @@ Core.lua
 
 Addons.lua
 Bags.lua
+Calendar.lua
 Clock.lua
 Currency.lua
 DailyReset.lua
