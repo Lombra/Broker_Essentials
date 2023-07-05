@@ -7,41 +7,61 @@ local menuItems = {
 	-- {type = "item", id = HEARTHSTONE_ITEM_ID},	-- Hearthstone
 	
 	{text = "Teleports"},
-	{type = "spell", id = 88342}, -- Tol Barad (Alliance)
-	{type = "spell", id = 88344}, -- Tol Barad (Horde)
-	{type = "spell", id = 53140}, -- Dalaran
-	{type = "spell", id = 33690}, -- Shattrath (Alliance)
-	{type = "spell", id = 35715}, -- Shattrath (Horde)
 	{type = "spell", id = 3561},  -- Stormwind
 	{type = "spell", id = 3562},  -- Ironforge
 	{type = "spell", id = 3565},  -- Darnassus
+	{type = "spell", id = 32271}, -- Exodar
+	{type = "spell", id = 49359}, -- Theramore
+
 	{type = "spell", id = 3567},  -- Orgrimmar
 	{type = "spell", id = 3563},  -- Undercity
 	{type = "spell", id = 3566},  -- Thunder Bluff
-	{type = "spell", id = 32271}, -- Exodar
 	{type = "spell", id = 32272}, -- Silvermoon
-	{type = "spell", id = 49359}, -- Theramore
 	{type = "spell", id = 49358}, -- Stonard
-	
+
+	{type = "spell", id = 33690}, -- Shattrath (Alliance)
+	{type = "spell", id = 35715}, -- Shattrath (Horde)
+	{type = "spell", id = 53140}, -- Dalaran - Northrend
+	{type = "spell", id = 88342}, -- Tol Barad (Alliance)
+	{type = "spell", id = 88344}, -- Tol Barad (Horde)
+	{type = "spell", id = 132621}, -- Vale of Eternal Blossoms
+	{type = "spell", id = 176248}, -- Stormshield
+	{type = "spell", id = 224869}, -- Dalaran - Broken Isles
+	{type = "spell", id = 281403}, -- Boralus
+	{type = "spell", id = 344587}, -- Oribos
+	{type = "spell", id = 395277}, -- Valdrakken
+
 	{type = "spell", id = 18960}, -- Moonglade
+	{type = "spell", id = 120145}, -- Dalaran crater
+	{type = "spell", id = 193759}, -- Hall of the Guardian
 	
 	{text = "Portals"},
-	{type = "spell", id = 88345}, -- Tol Barad (Alliance)
-	{type = "spell", id = 88346}, -- Tol Barad (Horde)
-	{type = "spell", id = 53142}, -- Dalaran
-	{type = "spell", id = 33691}, -- Shattrath (Alliance)
-	{type = "spell", id = 35717}, -- Shattrath (Horde)
 	{type = "spell", id = 10059}, -- Stormwind
 	{type = "spell", id = 11416}, -- Ironforge
 	{type = "spell", id = 11419}, -- Darnassus
+	{type = "spell", id = 32266}, -- Exodar
+	{type = "spell", id = 49360}, -- Theramore
+
 	{type = "spell", id = 11417}, -- Orgrimmar
 	{type = "spell", id = 11418}, -- Undercity
 	{type = "spell", id = 11420}, -- Thunder Bluff
-	{type = "spell", id = 32266}, -- Exodar
 	{type = "spell", id = 32267}, -- Silvermoon
-	{type = "spell", id = 49360}, -- Theramore
 	{type = "spell", id = 49361}, -- Stonard
+
+	{type = "spell", id = 33691}, -- Shattrath (Alliance)
+	{type = "spell", id = 35717}, -- Shattrath (Horde)
+	{type = "spell", id = 53142}, -- Dalaran - Northrend
+	{type = "spell", id = 88345}, -- Tol Barad (Alliance)
+	{type = "spell", id = 88346}, -- Tol Barad (Horde)
+	{type = "spell", id = 132620}, -- Vale of Eternal Blossoms
+	{type = "spell", id = 176246}, -- Stormshield
+	{type = "spell", id = 224871}, -- Dalaran - Broken Isles
+	{type = "spell", id = 281400}, -- Boralus
+	{type = "spell", id = 344597}, -- Oribos
+	{type = "spell", id = 395289}, -- Valdrakken
 	
+	{type = "spell", id = 120146}, -- Dalaran crater
+
 	{text = "Challenger's Path"},
 	{type = "spell", id = 131228}, -- Path of the Black Ox
 	{type = "spell", id = 131204}, -- Path of the Jade Serpent
