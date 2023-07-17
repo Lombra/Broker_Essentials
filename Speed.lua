@@ -2,11 +2,14 @@ local _, core = ...
 
 local currentUnit = "player"
 
-local floor = math.floor
 local format = string.format
 local GetUnitSpeed = GetUnitSpeed
 local IsSwimming = IsSwimming
 local IsFalling = IsFalling
+
+local function getSpeedText(formatString, speed)
+	return format(formatString, speed / BASE_MOVEMENT_SPEED * 100 + 0.5)
+end
 
 local module = core:NewModule("Speed", {
 	type = "data source",
@@ -21,10 +24,10 @@ local module = core:NewModule("Speed", {
 		elseif IsFlying() then
 			speed = flightSpeed
 		end
-		self:AddLine(format(PAPERDOLLFRAME_TOOLTIP_FORMAT, STAT_MOVEMENT_SPEED).." "..format("%d%%", speed/BASE_MOVEMENT_SPEED*100+0.5), HIGHLIGHT_FONT_COLOR.r, HIGHLIGHT_FONT_COLOR.g, HIGHLIGHT_FONT_COLOR.b)
-		self:AddLine(format(STAT_MOVEMENT_GROUND_TOOLTIP, runSpeed / BASE_MOVEMENT_SPEED * 100 + 0.5))
-		self:AddLine(format(STAT_MOVEMENT_FLIGHT_TOOLTIP, flightSpeed / BASE_MOVEMENT_SPEED * 100 + 0.5))
-		self:AddLine(format(STAT_MOVEMENT_SWIM_TOOLTIP, swimSpeed / BASE_MOVEMENT_SPEED * 100 + 0.5))
+		self:AddLine(format(PAPERDOLLFRAME_TOOLTIP_FORMAT, STAT_MOVEMENT_SPEED).." "..getSpeedText("%d%%", speed), HIGHLIGHT_FONT_COLOR.r, HIGHLIGHT_FONT_COLOR.g, HIGHLIGHT_FONT_COLOR.b)
+		self:AddLine(getSpeedText(STAT_MOVEMENT_GROUND_TOOLTIP, runSpeed))
+		self:AddLine(getSpeedText(STAT_MOVEMENT_FLIGHT_TOOLTIP, flightSpeed))
+		self:AddLine(getSpeedText(STAT_MOVEMENT_SWIM_TOOLTIP, swimSpeed))
 	end,
 })
 
@@ -45,7 +48,8 @@ local function onUpdate(self)
 	-- else
 		-- self.wasSwimming = IsSwimming()
 	-- end
-	self.text = format("%d%%", GetUnitSpeed(currentUnit) / BASE_MOVEMENT_SPEED * 100 + 0.5)
+	local isGliding, canGlide, forwardSpeed = C_PlayerInfo.GetGlidingInfo()
+	self.text = getSpeedText("%d%%", isGliding and forwardSpeed or GetUnitSpeed(currentUnit))
 end
 
 function module:PLAYER_ENTERING_WORLD()
