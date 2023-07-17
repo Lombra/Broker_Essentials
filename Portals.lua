@@ -91,6 +91,9 @@ local menuItems = {
 	{type = "toy", id = 48933},  -- Wormhole Generator: Northrend
 	{type = "toy", id = 87215},  -- Wormhole Generator: Pandaria
 	{type = "toy", id = 112059}, -- Wormhole Centrifuge
+
+	{type = "toy", id = 110560}, -- Garrison Hearthstone
+	{type = "toy", id = 140192}, -- Dalaran Hearthstone
 }
 
 local dropdown = core:CreateDropdown("Menu")
