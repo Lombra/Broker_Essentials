@@ -53,7 +53,7 @@ local module = core:NewModule("Location", {
 
 		self:AddLine(zoneName, 1.0, 1.0, 1.0)
 
-		local pvpType, isSubZonePvP, factionName = GetZonePVPInfo()
+		local pvpType, isSubZonePvP, factionName = C_PvP.GetZonePVPInfo()
 		local color = getPvPTypeColor(pvpType)
 		if pvpType == "sanctuary" then
 			self:AddLine(subzoneName, color.r, color.g, color.b)
@@ -93,7 +93,7 @@ function module:OnInitialize()
 end
 
 function module:Update()
-	local pvpType, isSubZonePvP, factionName = GetZonePVPInfo()
+	local pvpType, isSubZonePvP, factionName = C_PvP.GetZonePVPInfo()
 	local color = getPvPTypeColor(pvpType)
 	self.text = WrapTextInColor(GetMinimapZoneText(), CreateColor(color.r, color.g, color.b))
 end

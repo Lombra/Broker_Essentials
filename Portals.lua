@@ -5,7 +5,7 @@ local menu = {}
 
 local menuItems = {
 	-- {type = "item", id = HEARTHSTONE_ITEM_ID},	-- Hearthstone
-	
+
 	{text = "Teleports"},
 	{type = "spell", id = 3561},  -- Stormwind
 	{type = "spell", id = 3562},  -- Ironforge
@@ -34,7 +34,7 @@ local menuItems = {
 	{type = "spell", id = 18960}, -- Moonglade
 	{type = "spell", id = 120145}, -- Dalaran crater
 	{type = "spell", id = 193759}, -- Hall of the Guardian
-	
+
 	{text = "Portals"},
 	{type = "spell", id = 10059}, -- Stormwind
 	{type = "spell", id = 11416}, -- Ironforge
@@ -59,7 +59,7 @@ local menuItems = {
 	{type = "spell", id = 281400}, -- Boralus
 	{type = "spell", id = 344597}, -- Oribos
 	{type = "spell", id = 395289}, -- Valdrakken
-	
+
 	{type = "spell", id = 120146}, -- Dalaran crater
 
 	{text = "Challenger's Path"},
@@ -72,7 +72,7 @@ local menuItems = {
 	{type = "spell", id = 131225}, -- Path of the Setting Sun
 	{type = "spell", id = 131206}, -- Path of the Shado-Pan
 	{type = "spell", id = 131205}, -- Path of the Stout Brew
-	
+
 	{text = "Warlord's Path"},
 	{type = "spell", id = 159895}, -- Path of the Bloodmaul
 	{type = "spell", id = 159896}, -- Path of the Iron Prow
@@ -82,7 +82,7 @@ local menuItems = {
 	{type = "spell", id = 159900}, -- Path of the Dark Rail
 	{type = "spell", id = 159899}, -- Path of the Crescent Moon
 	{type = "spell", id = 159902}, -- Path of the Burning Mountain
-	
+
 	{text = "Items"},
 	{type = "toy", id = 18986},  -- Ultrasafe Transporter: Gadgetzan
 	{type = "toy", id = 18984},  -- Dimensional Ripper: Everlook
@@ -124,15 +124,17 @@ end
 function module:PLAYER_LOGIN()
 	for index, value in ipairs(menuItems) do
 		if value.id then
-			local name, icon, _
+			local name, icon
 			if value.type == "spell" then
-				name, _, icon = GetSpellInfo(value.id)
+				local spellInfo = C_Spell.GetSpellInfo(value.id)
+				name = spellInfo.name
+				icon = spellInfo.iconID
 			elseif value.type == "item" then
 				name = "item:"..value.id
-				icon = GetItemIcon(value.id)
+				icon = C_Item.GetItemIconByID(value.id)
 			elseif value.type == "toy" then
 				name = value.id
-				icon = GetItemIcon(value.id)
+				icon = C_Item.GetItemIconByID(value.id)
 			end
 			value.text = name
 			value.icon = icon
@@ -147,7 +149,7 @@ function module:PLAYER_LOGIN()
 	end
 
 	self:SetMenuItemVisibility()
-	
+
 	self:RegisterEvent("LEARNED_SPELL_IN_TAB")
 	self:RegisterEvent("BAG_UPDATE_DELAYED", "SetMenuItemVisibility")
 end
@@ -176,26 +178,26 @@ function module:SetMenuItemVisibility()
 	if InCombatLockdown() then
 		return
 	end
-	
+
 	wipe(menu)
-	
+
 	local previousItem
-	for index, value in ipairs(menuItems) do 
+	for index, value in ipairs(menuItems) do
 		if not value.id then
 			-- items without an ID will be headers
 			tinsert(menu, value)
 		elseif value.type == "spell" and IsSpellKnown(value.id) then
-			value.disabled = not IsUsableSpell(value.text)
+			value.disabled = not C_Spell.IsSpellUsable(value.text)
 			tinsert(menu, value)
-		elseif value.type == "item" and GetItemCount(value.id) > 0 then
-			value.text = GetItemInfo(value.id)
+		elseif value.type == "item" and C_Item.GetItemCount(value.id) > 0 then
+			value.text = C_Item.GetItemInfo(value.id)
 			tinsert(menu, value)
 		elseif value.type == "toy" and PlayerHasToy(value.id) and C_ToyBox.IsToyUsable(value.id) then
-			value.text = GetItemInfo(value.id)
+			value.text = C_Item.GetItemInfo(value.id)
 			tinsert(menu, value)
 		end
 	end
-	
+
 	for i = #menu, 1, -1 do
 		-- if a header has no following spells or next button is another header, we want to hide it
 		local _, next = next(menu, i)
