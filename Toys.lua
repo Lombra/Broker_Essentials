@@ -34,6 +34,7 @@ local module = core:NewModule("Toys", {
 function module:OnInitialize()
 	self:RegisterEvent("PLAYER_REGEN_DISABLED")
 	self:RegisterEvent("PLAYER_REGEN_ENABLED")
+	self:RegisterEvent("TOYS_UPDATED")
 end
 
 function module:PLAYER_REGEN_ENABLED()
@@ -43,4 +44,8 @@ end
 function module:PLAYER_REGEN_DISABLED()
 	self.text = "|cffff0000In combat|r"
 	dropdown:Close()
+end
+
+function module:TOYS_UPDATED()
+	RunNextFrame(GenerateClosure(dropdown.Rebuild, dropdown))
 end
