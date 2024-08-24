@@ -25,7 +25,7 @@ end
 local module = core:NewModule("Reincarnation", {
 	type = "data source",
 	label = "Reincarnation",
-	icon = GetSpellTexture(REINCARNATION_ID),
+	icon = C_Spell.GetSpellTexture(REINCARNATION_ID),
 	text = "Ready"
 })
 
@@ -35,8 +35,8 @@ local nextUpdate = 0
 local function onUpdate(self, elapsed)
 	nextUpdate = nextUpdate - elapsed
 	while nextUpdate < interval do
-		local start, duration = GetSpellCooldown(REINCARNATION_ID)
-		duration = start + duration - GetTime()
+		local cooldown = C_Spell.GetSpellCooldown(REINCARNATION_ID)
+		local duration = cooldown.startTime + cooldown.duration - GetTime()
 		nextUpdate = duration % 1
 		-- print(duration)
 		local maxCount = 1
@@ -44,7 +44,7 @@ local function onUpdate(self, elapsed)
 			-- interval = 1
 		elseif duration < 3600 then
 			-- interval = 60
-			
+
 		elseif duration % 3600 < 60 then
 		else
 			maxCount = 2
@@ -66,12 +66,13 @@ function module:OnInitialize()
 end
 
 function module:PLAYER_LOGIN()
-	if GetSpellCooldown(REINCARNATION_ID) > 0 then
+	local cooldown = C_Spell.GetSpellCooldown(REINCARNATION_ID)
+	if cooldown.startTime > 0 then
 		self:SetOnUpdate(onUpdate)
 	end
-	
+
 	self:SPELLS_CHANGED()
-	
+
 	-- self.PLAYER_LOGIN = nil
 end
 
