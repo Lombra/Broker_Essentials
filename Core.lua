@@ -8,8 +8,21 @@ function addon:OnInitialize()
 	Broker_EssentialsDB = Broker_EssentialsDB or {}
 end
 
+local function copyDefaults(source, target)
+	source = source or { }
+	target = target or { }
+	for k, v in pairs(source) do
+		if type(v) == "table" then
+			target[k] = copyDefaults(v, target[k])
+		elseif type(v) ~= type(target[k]) then
+			target[k] = v
+		end
+	end
+	return target
+end
+
 local function getDB(self, defaults)
-	Broker_EssentialsDB[self.name] = Broker_EssentialsDB[self.name] or defaults or {}
+	Broker_EssentialsDB[self.name] = copyDefaults(defaults, Broker_EssentialsDB[self.name])
 	return Broker_EssentialsDB[self.name]
 end
 

@@ -1,5 +1,5 @@
 local _, core = ...
-local db, session
+local db, sessionCharacter, sessionAccount
 
 local player
 
@@ -8,19 +8,23 @@ local module = core:NewModule("Gold", {
 	label = "Gold",
 	icon = [[Interface\Icons\INV_Misc_Coin_02]],
 	OnTooltipShow = function(self)
-		self:AddLine("Gold", HIGHLIGHT_FONT_COLOR.r, HIGHLIGHT_FONT_COLOR.g, HIGHLIGHT_FONT_COLOR.b)
-		local sum = 0
-		for character, money in pairs(db) do
+		self:AddLine("Gold", HIGHLIGHT_FONT_COLOR:GetRGB())
+		local sum = db.account
+		for character, money in pairs(db.characters) do
 			if core:IsConnectedRealm(character:match("%-(.+)"), true) then
-				self:AddDoubleLine(Ambiguate(character, "none"), GetMoneyString(money), nil, nil, nil, HIGHLIGHT_FONT_COLOR.r, HIGHLIGHT_FONT_COLOR.g, HIGHLIGHT_FONT_COLOR.b)
+				self:AddDoubleLine(Ambiguate(character, "none"), GetMoneyString(money), nil, nil, nil, HIGHLIGHT_FONT_COLOR:GetRGB())
 				sum = sum + money
 			end
 		end
+		if db.account > 0 then
+			self:AddLine(" ")
+			self:AddDoubleLine("Warband bank", GetMoneyString(db.account), nil, nil, nil, HIGHLIGHT_FONT_COLOR:GetRGB())
+		end
 		self:AddLine(" ")
-		self:AddDoubleLine("Total", GetMoneyString(sum), nil, nil, nil, HIGHLIGHT_FONT_COLOR.r, HIGHLIGHT_FONT_COLOR.g, HIGHLIGHT_FONT_COLOR.b)
+		self:AddDoubleLine("Total", GetMoneyString(sum), nil, nil, nil, HIGHLIGHT_FONT_COLOR:GetRGB())
 		self:AddLine(" ")
 		local color = HIGHLIGHT_FONT_COLOR
-		local delta = GetMoney() - session
+		local delta = (GetMoney() + db.account) - (sessionCharacter + sessionAccount)
 		if delta > 0 then
 			-- we have gained money
 			color = GREEN_FONT_COLOR
@@ -29,24 +33,40 @@ local module = core:NewModule("Gold", {
 			delta = abs(delta)
 			color = RED_FONT_COLOR
 		end
-		self:AddDoubleLine("Earned this session", GetMoneyString(delta), nil, nil, nil, color.r, color.g, color.b)
+		self:AddDoubleLine("Earned this session", GetMoneyString(delta), nil, nil, nil, color:GetRGB())
 	end
 })
 
+local defaults = {
+	characters = { },
+}
+
 function module:OnInitialize()
-	db = self:GetDB()
+	db = self:GetDB(defaults)
 	self:RegisterEvent("PLAYER_LOGIN")
-	self:RegisterEvent("PLAYER_MONEY", "Update")
+	self:RegisterEvent("PLAYER_MONEY", self.UpdatePlayerMoney)
+	self:RegisterEvent("ACCOUNT_MONEY", self.UpdateAccountMoney)
 end
 
 function module:PLAYER_LOGIN()
 	player = strjoin("-", UnitFullName("player"))
-	self:Update()
+	self:UpdatePlayerMoney()
+	self:UpdateAccountMoney()
 end
 
-function module:Update()
+function module:UpdateText()
+	self.text = GetMoneyString(db.characters[player])
+end
+
+function module:UpdatePlayerMoney()
 	local money = GetMoney()
-	session = session or money
-	db[player] = money
-	self.text = GetMoneyString(money)
+	sessionCharacter = sessionCharacter or money
+	db.characters[player] = money
+	self:UpdateText()
+end
+
+function module:UpdateAccountMoney()
+	local money = C_Bank.FetchDepositedMoney(Enum.BankType.Account)
+	sessionAccount = sessionAccount or money
+	db.account = money
 end
