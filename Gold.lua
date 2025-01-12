@@ -12,16 +12,16 @@ local module = core:NewModule("Gold", {
 		local sum = db.account
 		for character, money in pairs(db.characters) do
 			if core:IsConnectedRealm(character:match("%-(.+)"), true) then
-				self:AddDoubleLine(Ambiguate(character, "none"), GetMoneyString(money), nil, nil, nil, HIGHLIGHT_FONT_COLOR:GetRGB())
+				self:AddDoubleLine(Ambiguate(character, "none"), GetMoneyString(money, true, true), nil, nil, nil, HIGHLIGHT_FONT_COLOR:GetRGB())
 				sum = sum + money
 			end
 		end
 		if db.account > 0 then
 			self:AddLine(" ")
-			self:AddDoubleLine("Warband bank", GetMoneyString(db.account), nil, nil, nil, HIGHLIGHT_FONT_COLOR:GetRGB())
+			self:AddDoubleLine("Warband bank", GetMoneyString(db.account, true, true), nil, nil, nil, HIGHLIGHT_FONT_COLOR:GetRGB())
 		end
 		self:AddLine(" ")
-		self:AddDoubleLine("Total", GetMoneyString(sum), nil, nil, nil, HIGHLIGHT_FONT_COLOR:GetRGB())
+		self:AddDoubleLine("Total", GetMoneyString(sum, true, true), nil, nil, nil, HIGHLIGHT_FONT_COLOR:GetRGB())
 		self:AddLine(" ")
 		local color = HIGHLIGHT_FONT_COLOR
 		local delta = (GetMoney() + db.account) - (sessionCharacter + sessionAccount)
@@ -33,7 +33,7 @@ local module = core:NewModule("Gold", {
 			delta = abs(delta)
 			color = RED_FONT_COLOR
 		end
-		self:AddDoubleLine("Earned this session", GetMoneyString(delta), nil, nil, nil, color:GetRGB())
+		self:AddDoubleLine("Earned this session", GetMoneyString(delta, true, true), nil, nil, nil, color:GetRGB())
 	end
 })
 
@@ -55,7 +55,7 @@ function module:PLAYER_LOGIN()
 end
 
 function module:UpdateText()
-	self.text = GetMoneyString(db.characters[player])
+	self.text = GetMoneyString(db.characters[player], true, true)
 end
 
 function module:UpdatePlayerMoney()
