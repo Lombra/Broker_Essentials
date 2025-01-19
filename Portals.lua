@@ -28,6 +28,7 @@ local menuItems = {
 	{type = "spell", id = 176248}, -- Stormshield
 	{type = "spell", id = 224869}, -- Dalaran - Broken Isles
 	{type = "spell", id = 281403}, -- Boralus
+	{type = "spell", id = 281404}, -- Dazar'alor
 	{type = "spell", id = 344587}, -- Oribos
 	{type = "spell", id = 395277}, -- Valdrakken
 
@@ -57,6 +58,7 @@ local menuItems = {
 	{type = "spell", id = 176246}, -- Stormshield
 	{type = "spell", id = 224871}, -- Dalaran - Broken Isles
 	{type = "spell", id = 281400}, -- Boralus
+	{type = "spell", id = 281402}, -- Dazar'alor
 	{type = "spell", id = 344597}, -- Oribos
 	{type = "spell", id = 395289}, -- Valdrakken
 
@@ -91,6 +93,7 @@ local menuItems = {
 	{type = "toy", id = 48933},  -- Wormhole Generator: Northrend
 	{type = "toy", id = 87215},  -- Wormhole Generator: Pandaria
 	{type = "toy", id = 112059}, -- Wormhole Centrifuge
+	{type = "toy", id = 198156}, -- Wyrmhole Generator: Dragon Isles
 
 	{type = "toy", id = 110560}, -- Garrison Hearthstone
 	{type = "toy", id = 140192}, -- Dalaran Hearthstone
