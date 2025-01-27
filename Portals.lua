@@ -96,7 +96,7 @@ local menuItems = {
 	{type = "toy", id = 198156}, -- Wyrmhole Generator: Dragon Isles
 
 	{type = "toy", id = 110560}, -- Garrison Hearthstone
-	{type = "toy", id = 140192}, -- Dalaran Hearthstone
+	{type = "toy", id = 140192, questID = 44663 }, -- Dalaran Hearthstone
 }
 
 local dropdown = core:CreateDropdown("Menu")
@@ -126,7 +126,7 @@ end
 
 function module:PLAYER_LOGIN()
 	for index, value in ipairs(menuItems) do
-		if value.id then
+		if value.id and (not value.questID or C_QuestLog.IsQuestFlaggedCompleted(value.questID)) then
 			local name, icon
 			if value.type == "spell" then
 				local spellInfo = C_Spell.GetSpellInfo(value.id)
