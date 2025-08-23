@@ -1,16 +1,16 @@
 local _, core = ...
 
 local function onClick(self, spec)
-	SetSpecialization(spec)
+	C_SpecializationInfo.SetSpecialization(spec)
 end
 
 local dropdown = core:CreateDropdown("Menu")
 dropdown.xOffset = 0
 dropdown.yOffset = 0
 dropdown.initialize = function(self, level)
-	local specIndex = GetSpecialization()
+	local specIndex = C_SpecializationInfo.GetSpecialization()
 	for i = 1, GetNumSpecializations() do
-		local id, name, _, icon = GetSpecializationInfo(i)
+		local id, name, _, icon = C_SpecializationInfo.GetSpecializationInfo(i)
 		local info = UIDropDownMenu_CreateInfo()
 		info.text = name
 		info.func = onClick
@@ -34,9 +34,9 @@ function module:OnInitialize()
 end
 
 function module:Update()
-	local spec = GetSpecialization()
+	local spec = C_SpecializationInfo.GetSpecialization()
 	if spec then
-		local _, name, _, icon = GetSpecializationInfo(spec)
+		local _, name, _, icon = C_SpecializationInfo.GetSpecializationInfo(spec)
 		self.text = name
 		self.icon = icon
 	else
