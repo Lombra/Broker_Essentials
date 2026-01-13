@@ -64,7 +64,7 @@ local menuItems = {
 
 	{type = "spell", id = 120146}, -- Dalaran crater
 
-	{text = "Challenger's Path"},
+	{text = "Hero's Path: Mists of Pandaria"},
 	{type = "spell", id = 131228}, -- Path of the Black Ox
 	{type = "spell", id = 131204}, -- Path of the Jade Serpent
 	{type = "spell", id = 131222}, -- Path of the Mogu King
@@ -75,7 +75,7 @@ local menuItems = {
 	{type = "spell", id = 131206}, -- Path of the Shado-Pan
 	{type = "spell", id = 131205}, -- Path of the Stout Brew
 
-	{text = "Warlord's Path"},
+	{text = "Hero's Path: Warlords of Draenor"},
 	{type = "spell", id = 159895}, -- Path of the Bloodmaul
 	{type = "spell", id = 159896}, -- Path of the Iron Prow
 	{type = "spell", id = 159897}, -- Path of the Vigilant
@@ -84,6 +84,13 @@ local menuItems = {
 	{type = "spell", id = 159900}, -- Path of the Dark Rail
 	{type = "spell", id = 159899}, -- Path of the Crescent Moon
 	{type = "spell", id = 159902}, -- Path of the Burning Mountain
+
+	{text = "Hero's Path: Legion"},
+	{type = "spell", id = 424153}, -- Path of Ancient Horrors
+	{type = "spell", id = 410078}, -- Path of the Earth-Warder
+	{type = "spell", id = 393766}, -- Path of the Grand Magistrix
+	{type = "spell", id = 424163}, -- Path of the Nightmare Lord
+	{type = "spell", id = 393764}, -- Path of Proven Worth
 
 	{text = "Items"},
 	{type = "toy", id = 18986},  -- Ultrasafe Transporter: Gadgetzan
