@@ -31,6 +31,7 @@ local menuItems = {
 	{type = "spell", id = 281404}, -- Dazar'alor
 	{type = "spell", id = 344587}, -- Oribos
 	{type = "spell", id = 395277}, -- Valdrakken
+	{type = "spell", id = 446540}, -- Dornogal
 
 	{type = "spell", id = 18960}, -- Moonglade
 	{type = "spell", id = 120145}, -- Dalaran crater
@@ -61,6 +62,7 @@ local menuItems = {
 	{type = "spell", id = 281402}, -- Dazar'alor
 	{type = "spell", id = 344597}, -- Oribos
 	{type = "spell", id = 395289}, -- Valdrakken
+	{type = "spell", id = 446534}, -- Dornogal
 
 	{type = "spell", id = 120146}, -- Dalaran crater
 
