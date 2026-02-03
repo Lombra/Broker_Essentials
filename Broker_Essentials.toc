@@ -1,6 +1,6 @@
-## Interface: 110200
+## Interface: 120000
 ## Title: Broker: Essentials
-## Version: 1.0.1
+## Version: 1.1.0
 ## Author: Lombra
 
 ## SavedVariables: Broker_EssentialsDB

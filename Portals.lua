@@ -160,7 +160,7 @@ function module:PLAYER_LOGIN()
 
 	self:SetMenuItemVisibility()
 
-	self:RegisterEvent("LEARNED_SPELL_IN_TAB")
+	self:RegisterEvent("LEARNED_SPELL_IN_SKILL_LINE")
 	self:RegisterEvent("BAG_UPDATE_DELAYED", "SetMenuItemVisibility")
 end
 
@@ -179,7 +179,7 @@ local function onUpdate(self)
 	self:RemoveOnUpdate()
 end
 
-function module:LEARNED_SPELL_IN_TAB()
+function module:LEARNED_SPELL_IN_SKILL_LINE()
 	self:SetOnUpdate(onUpdate)
 end
 
